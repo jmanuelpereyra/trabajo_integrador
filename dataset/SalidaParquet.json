@@ -1,0 +1,32 @@
+{
+	"name": "SalidaParquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"carpeta": {
+				"type": "string"
+			},
+			"archivo": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(dataset().carpeta, '/', dataset().archivo)",
+					"type": "Expression"
+				},
+				"folderPath": "proyecto_integrador/raw",
+				"fileSystem": "contenedor"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

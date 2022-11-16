@@ -1,0 +1,129 @@
+{
+	"name": "EntradaCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"archivo": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().archivo",
+					"type": "Expression"
+				},
+				"folderPath": "proyecto_integrador/origin",
+				"fileSystem": "contenedor"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "tourney_year_id",
+				"type": "String"
+			},
+			{
+				"name": "tourney_order",
+				"type": "String"
+			},
+			{
+				"name": "tourney_slug",
+				"type": "String"
+			},
+			{
+				"name": "tourney_url_suffix",
+				"type": "String"
+			},
+			{
+				"name": "tourney_round_name",
+				"type": "String"
+			},
+			{
+				"name": "round_order",
+				"type": "String"
+			},
+			{
+				"name": "match_order",
+				"type": "String"
+			},
+			{
+				"name": "winner_name",
+				"type": "String"
+			},
+			{
+				"name": "winner_player_id",
+				"type": "String"
+			},
+			{
+				"name": "winner_slug",
+				"type": "String"
+			},
+			{
+				"name": "loser_name",
+				"type": "String"
+			},
+			{
+				"name": "loser_player_id",
+				"type": "String"
+			},
+			{
+				"name": "loser_slug",
+				"type": "String"
+			},
+			{
+				"name": "winner_seed",
+				"type": "String"
+			},
+			{
+				"name": "loser_seed",
+				"type": "String"
+			},
+			{
+				"name": "match_score_tiebreaks",
+				"type": "String"
+			},
+			{
+				"name": "winner_sets_won",
+				"type": "String"
+			},
+			{
+				"name": "loser_sets_won",
+				"type": "String"
+			},
+			{
+				"name": "winner_games_won",
+				"type": "String"
+			},
+			{
+				"name": "loser_games_won",
+				"type": "String"
+			},
+			{
+				"name": "winner_tiebreaks_won",
+				"type": "String"
+			},
+			{
+				"name": "loser_tiebreaks_won",
+				"type": "String"
+			},
+			{
+				"name": "match_id",
+				"type": "String"
+			},
+			{
+				"name": "match_stats_url_suffix",
+				"type": "String"
+			}
+		]
+	}
+}
