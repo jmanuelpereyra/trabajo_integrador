@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "match_scores_1968",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -15,11 +15,67 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.match_scores_1968",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@pipeline().parameters.carpeta_match_scores_1968",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_match_scores_1968,'.parquet')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			},
 			{
-				"name": "Copy data2",
+				"name": "match_scores_1991",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -31,11 +87,67 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.match_scores_1991",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@pipeline().parameters.carpeta_match_scores_1991",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_match_scores_1991, '.parquet')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			},
 			{
-				"name": "Copy data3",
+				"name": "match_stats_2017",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -47,11 +159,57 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.match_stats_2017",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference"
+					}
+				]
 			},
 			{
-				"name": "Copy data4",
+				"name": "player_overviews",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -63,11 +221,34 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.players_overview",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			},
 			{
-				"name": "Copy data5",
+				"name": "rankings_1973",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -79,11 +260,57 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.rankings_1973",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference"
+					}
+				]
 			},
 			{
-				"name": "Copy data6",
+				"name": "match_scores_2017",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -95,11 +322,57 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.match_scores_2017",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference"
+					}
+				]
 			},
 			{
-				"name": "Copy data7",
+				"name": "match_stats_1991",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -111,11 +384,57 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.match_stats_1991",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference"
+					}
+				]
 			},
 			{
-				"name": "Copy data8",
+				"name": "players",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -127,8 +446,54 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EntradaCSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.players",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference"
+					}
+				]
 			},
 			{
 				"name": "match_scores_1877",
@@ -176,13 +541,29 @@
 				"inputs": [
 					{
 						"referenceName": "EntradaCSV",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"archivo": {
+								"value": "@pipeline().parameters.match_scores_1877",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "SalidaParquet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@pipeline().parameters.carpeta_match_scores_1877",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_match_scores_1877, '.parquet')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
@@ -193,10 +574,72 @@
 				"defaultValue": "match_scores_1877-1967_unindexed.csv"
 			},
 			"match_scores_1968": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "match_scores_1968-1990_unindexed.csv"
 			},
 			"match_scores_1991": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "match_scores_1991-2016_unindexed.csv"
+			},
+			"match_scores_2017": {
+				"type": "string",
+				"defaultValue": "match_scores_2017_unindexed.csv"
+			},
+			"match_stats_1991": {
+				"type": "string",
+				"defaultValue": "match_stats_1991-2016_unindexed.csv"
+			},
+			"match_stats_2017": {
+				"type": "string",
+				"defaultValue": "match_stats_2017_unindexed.csv"
+			},
+			"players_overview": {
+				"type": "string",
+				"defaultValue": "player_overviews_unindexed.csv"
+			},
+			"players": {
+				"type": "string",
+				"defaultValue": "players.csv"
+			},
+			"rankings_1973": {
+				"type": "string",
+				"defaultValue": "rankings_1973-2017.csv"
+			},
+			"carpeta_match_scores_1877": {
+				"type": "string",
+				"defaultValue": "match_scores_1877"
+			},
+			"carpeta_match_scores_1968": {
+				"type": "string",
+				"defaultValue": "match_scores_1968"
+			},
+			"carpeta_match_scores_1991": {
+				"type": "string",
+				"defaultValue": "match_scores_1991"
+			},
+			"carpeta_match_scores_2017": {
+				"type": "string",
+				"defaultValue": "match_scores_2017"
+			},
+			"carpeta_match_stats_1991": {
+				"type": "string",
+				"defaultValue": "match_stats_1991"
+			},
+			"carpeta_match_stats_2017": {
+				"type": "string",
+				"defaultValue": "match_stats_2017"
+			},
+			"carpeta_players_overview": {
+				"type": "string",
+				"defaultValue": "players_overview"
+			},
+			"carpeta_players": {
+				"type": "string",
+				"defaultValue": "players"
+			},
+			"carpeta_rankings_1973": {
+				"type": "string",
+				"defaultValue": "rankings_1973"
 			}
 		},
 		"folder": {
