@@ -1,0 +1,44 @@
+{
+	"name": "pipeline ingesta incremental",
+	"properties": {
+		"activities": [
+			{
+				"name": "Carga Incremental",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Carga Incremental",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SalidaParquet": {
+								"carpeta": "contenedor/proyecto_integrador/raw",
+								"archivo": "tournaments/tournaments.parquet"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"continuationSettings": {
+						"customizedCheckpointKey": "6ca0e210-2260-4cd7-84e2-e1356d756bd1"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Ingesa origin raw incremental"
+		},
+		"annotations": []
+	}
+}
