@@ -243,7 +243,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"carpeta": {
-										"value": "pipeline().parameters.carpeta_match_stats_2017",
+										"value": "@pipeline().parameters.carpeta_match_stats_2017",
 										"type": "Expression"
 									},
 									"archivo": {
@@ -535,78 +535,6 @@
 						]
 					},
 					{
-						"name": "players",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "ParquetSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "ParquetWriteSettings"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "EntradaCSV",
-								"type": "DatasetReference",
-								"parameters": {
-									"archivo": {
-										"value": "@pipeline().parameters.players",
-										"type": "Expression"
-									}
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "SalidaParquet",
-								"type": "DatasetReference",
-								"parameters": {
-									"carpeta": {
-										"value": "@pipeline().parameters.carpeta_players",
-										"type": "Expression"
-									},
-									"archivo": {
-										"value": "@concat(pipeline().parameters.carpeta_players, '.parquet')",
-										"type": "Expression"
-									}
-								}
-							}
-						]
-					},
-					{
 						"name": "match_scores_1877",
 						"type": "Copy",
 						"dependsOn": [],
@@ -768,6 +696,59 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline ingesta incremental')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Carga Incremental",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Carga Incremental",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"tablaTournaments": {},
+									"SalidaParquet": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine",
+							"continuationSettings": {
+								"customizedCheckpointKey": "037216bd-6343-41f0-bae4-bbff5c79223a"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Ingesa origin raw incremental"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/Carga Incremental')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/EntradaCSV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -902,6 +883,276 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/EntradaSQL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "tourney_year",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tourney_order",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tourney_name",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tourney_slug",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_location",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_dates",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_month",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tourney_day",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tourney_singles_draw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tourney_doubles_draw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tourney_conditions",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_surface",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_fin_commit",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_url_suffix",
+						"type": "varchar"
+					},
+					{
+						"name": "singles_winner_name",
+						"type": "varchar"
+					},
+					{
+						"name": "singles_winner_url",
+						"type": "varchar"
+					},
+					{
+						"name": "singles_winner_player_slug",
+						"type": "varchar"
+					},
+					{
+						"name": "singles_winner_player_id",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_1_name",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_1_url",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_1_player_slug",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_1_player_id",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_2_name",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_2_url",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_2_player_slug",
+						"type": "varchar"
+					},
+					{
+						"name": "doubles_winner_2_player_id",
+						"type": "varchar"
+					},
+					{
+						"name": "tourney_year_id",
+						"type": "varchar"
+					},
+					{
+						"name": "modified_date",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "tournaments"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SalidaIncremental')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "tournaments/tournaments.parquet",
+						"folderPath": "proyecto_integrador/raw",
+						"fileSystem": "contenedor"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "tourney_year_id",
+						"type": "UTF8"
+					},
+					{
+						"name": "tourney_order",
+						"type": "UTF8"
+					},
+					{
+						"name": "tourney_slug",
+						"type": "UTF8"
+					},
+					{
+						"name": "tourney_url_suffix",
+						"type": "UTF8"
+					},
+					{
+						"name": "tourney_round_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "round_order",
+						"type": "UTF8"
+					},
+					{
+						"name": "match_order",
+						"type": "UTF8"
+					},
+					{
+						"name": "winner_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "winner_player_id",
+						"type": "UTF8"
+					},
+					{
+						"name": "winner_slug",
+						"type": "UTF8"
+					},
+					{
+						"name": "loser_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "loser_player_id",
+						"type": "UTF8"
+					},
+					{
+						"name": "loser_slug",
+						"type": "UTF8"
+					},
+					{
+						"name": "winner_seed",
+						"type": "UTF8"
+					},
+					{
+						"name": "loser_seed",
+						"type": "UTF8"
+					},
+					{
+						"name": "match_score_tiebreaks",
+						"type": "UTF8"
+					},
+					{
+						"name": "winner_sets_won",
+						"type": "UTF8"
+					},
+					{
+						"name": "loser_sets_won",
+						"type": "UTF8"
+					},
+					{
+						"name": "winner_games_won",
+						"type": "UTF8"
+					},
+					{
+						"name": "loser_games_won",
+						"type": "UTF8"
+					},
+					{
+						"name": "winner_tiebreaks_won",
+						"type": "UTF8"
+					},
+					{
+						"name": "loser_tiebreaks_won",
+						"type": "UTF8"
+					},
+					{
+						"name": "match_id",
+						"type": "UTF8"
+					},
+					{
+						"name": "match_stats_url_suffix",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SalidaParquet')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -985,6 +1236,114 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Carga Incremental')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "EntradaSQL",
+								"type": "DatasetReference"
+							},
+							"name": "tablaTournaments"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SalidaIncremental",
+								"type": "DatasetReference"
+							},
+							"name": "SalidaParquet"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          tourney_year as integer,",
+						"          tourney_order as integer,",
+						"          tourney_name as string,",
+						"          tourney_id as integer,",
+						"          tourney_slug as string,",
+						"          tourney_location as string,",
+						"          tourney_dates as string,",
+						"          tourney_month as integer,",
+						"          tourney_day as integer,",
+						"          tourney_singles_draw as integer,",
+						"          tourney_doubles_draw as integer,",
+						"          tourney_conditions as string,",
+						"          tourney_surface as string,",
+						"          tourney_fin_commit as string,",
+						"          tourney_url_suffix as string,",
+						"          singles_winner_name as string,",
+						"          singles_winner_url as string,",
+						"          singles_winner_player_slug as string,",
+						"          singles_winner_player_id as string,",
+						"          doubles_winner_1_name as string,",
+						"          doubles_winner_1_url as string,",
+						"          doubles_winner_1_player_slug as string,",
+						"          doubles_winner_1_player_id as string,",
+						"          doubles_winner_2_name as string,",
+						"          doubles_winner_2_url as string,",
+						"          doubles_winner_2_player_slug as string,",
+						"          doubles_winner_2_player_id as string,",
+						"          tourney_year_id as string,",
+						"          modified_date as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     enableCdc: true,",
+						"     mode: 'read',",
+						"     skipInitialLoad: false,",
+						"     waterMarkColumn: 'modified_date',",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> tablaTournaments",
+						"tablaTournaments sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          tourney_year_id as string,",
+						"          tourney_order as string,",
+						"          tourney_slug as string,",
+						"          tourney_url_suffix as string,",
+						"          tourney_round_name as string,",
+						"          round_order as string,",
+						"          match_order as string,",
+						"          winner_name as string,",
+						"          winner_player_id as string,",
+						"          winner_slug as string,",
+						"          loser_name as string,",
+						"          loser_player_id as string,",
+						"          loser_slug as string,",
+						"          winner_seed as string,",
+						"          loser_seed as string,",
+						"          match_score_tiebreaks as string,",
+						"          winner_sets_won as string,",
+						"          loser_sets_won as string,",
+						"          winner_games_won as string,",
+						"          loser_games_won as string,",
+						"          winner_tiebreaks_won as string,",
+						"          loser_tiebreaks_won as string,",
+						"          match_id as string,",
+						"          match_stats_url_suffix as string",
+						"     ),",
+						"     format: 'parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SalidaParquet"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/EntradaSQL')]",
+				"[concat(variables('factoryId'), '/datasets/SalidaIncremental')]"
+			]
 		}
 	]
 }
