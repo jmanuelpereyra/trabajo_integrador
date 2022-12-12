@@ -489,6 +489,10 @@
 							"carpeta": {
 								"value": "@concat(pipeline().parameters.carpeta_match_stats_1991, '.parquet')",
 								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_match_stats_1991, '.parquet')",
+								"type": "Expression"
 							}
 						}
 					}
