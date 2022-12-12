@@ -1,0 +1,38 @@
+{
+	"name": "pipeline ingesta incremental",
+	"properties": {
+		"activities": [
+			{
+				"name": "Carga Incremental",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Carga Incremental",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"continuationSettings": {
+						"customizedCheckpointKey": "6c93fdf2-4cae-48e6-8c31-c755e199ec1c"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "ingesta incremental"
+		},
+		"annotations": []
+	}
+}
