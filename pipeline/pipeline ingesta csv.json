@@ -207,7 +207,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"carpeta": {
-								"value": "pipeline().parameters.carpeta_match_stats_2017",
+								"value": "@pipeline().parameters.carpeta_match_stats_2017",
 								"type": "Expression"
 							},
 							"archivo": {
