@@ -47,6 +47,10 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     enableCdc: true,",
+				"     mode: 'read',",
+				"     skipInitialLoad: true,",
+				"     waterMarkColumn: 'modified_date',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> tablaTournaments"
 			]
