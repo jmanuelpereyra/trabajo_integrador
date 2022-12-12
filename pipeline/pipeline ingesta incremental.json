@@ -20,8 +20,8 @@
 						"type": "DataFlowReference",
 						"datasetParameters": {
 							"SalidaParquet": {
-								"carpeta": "contenedor/proyecto_integrador/raw",
-								"archivo": "tournaments/tournaments.parquet"
+								"carpeta": "contenedor/proyecto_integrador/raw/",
+								"archivo": "tournaments.parquet"
 							}
 						}
 					},
