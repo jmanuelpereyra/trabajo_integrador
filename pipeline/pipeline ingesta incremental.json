@@ -17,13 +17,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "Carga Incremental",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"SalidaParquet": {
-								"carpeta": "contenedor/proyecto_integrador/raw/",
-								"archivo": "tournaments.parquet"
-							}
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,
@@ -31,7 +25,7 @@
 					},
 					"traceLevel": "Fine",
 					"continuationSettings": {
-						"customizedCheckpointKey": "6ca0e210-2260-4cd7-84e2-e1356d756bd1"
+						"customizedCheckpointKey": "037216bd-6343-41f0-bae4-bbff5c79223a"
 					}
 				}
 			}

@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "tournaments/tournaments.parquet",
 				"folderPath": "proyecto_integrador/raw",
 				"fileSystem": "contenedor"
 			},
