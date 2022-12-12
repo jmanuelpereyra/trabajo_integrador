@@ -204,7 +204,17 @@
 				"outputs": [
 					{
 						"referenceName": "SalidaParquet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "pipeline().parameters.carpeta_match_stats_2017",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_match_stats_2017,'.parquet')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -232,6 +242,15 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -241,6 +260,22 @@
 						"parameters": {
 							"archivo": {
 								"value": "@pipeline().parameters.players_overview",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalidaParquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@pipeline().parameters.carpeta_players_overview",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_players_overview, '.parquet')",
 								"type": "Expression"
 							}
 						}
@@ -305,7 +340,17 @@
 				"outputs": [
 					{
 						"referenceName": "SalidaParquet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@pipeline().parameters.carpeta_rankings_1973",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_rankings_1973, '.parquet')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -367,7 +412,17 @@
 				"outputs": [
 					{
 						"referenceName": "SalidaParquet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@pipeline().parameters.carpeta_match_scores_2017",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_match_scores_2017, '.parquet')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -429,7 +484,13 @@
 				"outputs": [
 					{
 						"referenceName": "SalidaParquet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@concat(pipeline().parameters.carpeta_match_stats_1991, '.parquet')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -491,7 +552,17 @@
 				"outputs": [
 					{
 						"referenceName": "SalidaParquet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"carpeta": {
+								"value": "@pipeline().parameters.carpeta_players",
+								"type": "Expression"
+							},
+							"archivo": {
+								"value": "@concat(pipeline().parameters.carpeta_players, '.parquet')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
