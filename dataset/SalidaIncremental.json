@@ -1,0 +1,20 @@
+{
+	"name": "SalidaIncremental",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "proyecto_integrador/raw/tournaments",
+				"fileSystem": "contenedor"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
