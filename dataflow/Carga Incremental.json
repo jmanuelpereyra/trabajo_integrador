@@ -58,7 +58,7 @@
 				"     validateSchema: false,",
 				"     enableCdc: true,",
 				"     mode: 'read',",
-				"     skipInitialLoad: true,",
+				"     skipInitialLoad: false,",
 				"     waterMarkColumn: 'modified_date',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> tablaTournaments",
