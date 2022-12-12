@@ -1,0 +1,55 @@
+{
+	"name": "Carga Incremental",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "EntradaSQL",
+						"type": "DatasetReference"
+					},
+					"name": "tablaTournaments"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          tourney_year as integer,",
+				"          tourney_order as integer,",
+				"          tourney_name as string,",
+				"          tourney_id as integer,",
+				"          tourney_slug as string,",
+				"          tourney_location as string,",
+				"          tourney_dates as string,",
+				"          tourney_month as integer,",
+				"          tourney_day as integer,",
+				"          tourney_singles_draw as integer,",
+				"          tourney_doubles_draw as integer,",
+				"          tourney_conditions as string,",
+				"          tourney_surface as string,",
+				"          tourney_fin_commit as string,",
+				"          tourney_url_suffix as string,",
+				"          singles_winner_name as string,",
+				"          singles_winner_url as string,",
+				"          singles_winner_player_slug as string,",
+				"          singles_winner_player_id as string,",
+				"          doubles_winner_1_name as string,",
+				"          doubles_winner_1_url as string,",
+				"          doubles_winner_1_player_slug as string,",
+				"          doubles_winner_1_player_id as string,",
+				"          doubles_winner_2_name as string,",
+				"          doubles_winner_2_url as string,",
+				"          doubles_winner_2_player_slug as string,",
+				"          doubles_winner_2_player_id as string,",
+				"          tourney_year_id as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> tablaTournaments"
+			]
+		}
+	}
+}
